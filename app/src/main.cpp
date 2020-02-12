@@ -10,6 +10,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+
+#include "DebugMenu.h"
+#include "Player.h"
+
 static void error_callback(int error, const char* description) {
 	fprintf(stderr, "Error: %s\n", description);
 }
@@ -45,6 +50,12 @@ int main(void) {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 450");
 
+	DebugMenu debugMenu;
+
+	Player player;
+
+	debugMenu.RegisterModule<PlayerDebugModule>(player);
+
 	while (!glfwWindowShouldClose(window)) {
 		int width, height;
 
@@ -56,7 +67,7 @@ int main(void) {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		ImGui::ShowDemoWindow();
+		debugMenu.Render();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
