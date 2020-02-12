@@ -21,9 +21,11 @@ public:
 
 	template <class T, class... Args>
 	void RegisterModule(Args&&... args) {
-		auto id      = std::type_index(typeid(T));
-		mModules[id] = ModuleEntry{std::make_unique<T>(args...)};
-		mModuleOrder.emplace_back(id);
+		auto id = std::type_index(typeid(T));
+		if (mModules.find(id) == mModules.end()) {
+			mModules[id] = ModuleEntry{std::make_unique<T>(args...)};
+			mModuleOrder.emplace_back(id);
+		}
 	}
 
 	template <class T>

@@ -53,7 +53,6 @@ int main(void) {
 	DebugMenu debugMenu;
 
 	Player player;
-
 	debugMenu.RegisterModule<PlayerDebugModule>(player);
 
 	while (!glfwWindowShouldClose(window)) {
@@ -68,6 +67,8 @@ int main(void) {
 		ImGui::NewFrame();
 
 		debugMenu.Render();
+
+		player.Render();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

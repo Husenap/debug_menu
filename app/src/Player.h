@@ -4,16 +4,31 @@
 
 class Player {
 public:
-	void SetShinMode(bool enabled) { std::cout << "Shin Mode: " << enabled << std::endl; }
-	void SetLocation(float location) { std::cout << "Player location: " << location << std::endl; }
+	void Render() {
+		ImGui::Begin("Player");
+
+		ImGui::Text("location: %f", mLocation);
+		ImGui::Text("shin mode: %d", mShinMode);
+
+		ImGui::End();
+	}
+
+	void SetShinMode(bool enabled) { mShinMode = enabled; }
+	void SetLocation(float location) { mLocation = location; }
+	float GetLocation() const { return mLocation; }
+	bool GetShinMode() const { return mShinMode; }
 
 private:
+	float mLocation = 0.5f;
+	bool mShinMode  = false;
 };
 
 class PlayerDebugModule : public DebugModule {
 public:
 	PlayerDebugModule(Player& player)
-	    : mPlayer(player) {}
+	    : mPlayer(player)
+	    , location(player.GetLocation())
+	    , shinMode(player.GetShinMode()) {}
 
 	const char* GetTitle() { return "Player Module##player_module"; }
 
@@ -28,6 +43,6 @@ public:
 
 private:
 	Player& mPlayer;
-	float location = 0.5f;
-	bool shinMode  = false;
+	float location;
+	bool shinMode;
 };
