@@ -5,6 +5,8 @@ set(src_files
 
 add_executable(${target_name} ${src_files})
 
+target_link_libraries(${target_name} PUBLIC "glfw" "glad" "imgui")
+
 source_group("src" FILES "src/main.cpp")
 
 set_target_properties(${target_name} PROPERTIES FOLDER ${PROJECT_NAME})
