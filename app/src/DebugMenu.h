@@ -8,9 +8,9 @@
 
 #include <imgui.h>
 
-class DebugModule {
+class IDebugModule {
 public:
-	virtual ~DebugModule() = default;
+	virtual ~IDebugModule() = default;
 
 	virtual const char* GetTitle() = 0;
 	virtual void Render()          = 0;
@@ -48,7 +48,7 @@ private:
 	}
 
 	struct ModuleEntry {
-		std::unique_ptr<DebugModule> mModule;
+		std::unique_ptr<IDebugModule> mModule;
 	};
 
 	std::string mTitle = "Debug Menu";

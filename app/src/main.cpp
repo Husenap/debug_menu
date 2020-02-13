@@ -53,7 +53,7 @@ int main(void) {
 
 #ifdef _DEBUG
 	DebugMenu debugMenu("Game");
-	debugMenu.RegisterModule<Player::PlayerDebugModule>(player);
+	debugMenu.RegisterModule<Player::DebugModule>(player);
 #endif
 
 	while (!glfwWindowShouldClose(window)) {

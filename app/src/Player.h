@@ -19,11 +19,11 @@ private:
 
 #ifdef _DEBUG
 public:
-	class PlayerDebugModule : public DebugModule {
+	class DebugModule : public IDebugModule {
 		Player& mPlayer;
 
 	public:
-		PlayerDebugModule(Player& player)
+		DebugModule(Player& player)
 		    : mPlayer(player) {}
 
 		const char* GetTitle() override { return "Player Module##player_module"; }
@@ -34,3 +34,4 @@ public:
 	};
 #endif
 };
+
