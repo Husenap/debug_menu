@@ -13,36 +13,24 @@ public:
 		ImGui::End();
 	}
 
-	void SetShinMode(bool enabled) { mShinMode = enabled; }
-	void SetLocation(float location) { mLocation = location; }
-	float GetLocation() const { return mLocation; }
-	bool GetShinMode() const { return mShinMode; }
-
 private:
 	float mLocation = 0.5f;
 	bool mShinMode  = false;
-};
 
-class PlayerDebugModule : public DebugModule {
+#ifdef _DEBUG
 public:
-	PlayerDebugModule(Player& player)
-	    : mPlayer(player)
-	    , location(player.GetLocation())
-	    , shinMode(player.GetShinMode()) {}
+	class PlayerDebugModule : public DebugModule {
+		Player& mPlayer;
 
-	const char* GetTitle() { return "Player Module##player_module"; }
+	public:
+		PlayerDebugModule(Player& player)
+		    : mPlayer(player) {}
 
-	void Render() override {
-		if (ImGui::SliderFloat("location", &location, 0.f, 1.f)) {
-			mPlayer.SetLocation(location);
+		const char* GetTitle() override { return "Player Module##player_module"; }
+		void Render() override {
+			ImGui::SliderFloat("location", &mPlayer.mLocation, 0.f, 1.f);
+			ImGui::Checkbox("shin mode", &mPlayer.mShinMode);
 		}
-		if (ImGui::Checkbox("shin mode", &shinMode)) {
-			mPlayer.SetShinMode(shinMode);
-		}
-	}
-
-private:
-	Player& mPlayer;
-	float location;
-	bool shinMode;
+	};
+#endif
 };

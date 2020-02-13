@@ -2,15 +2,18 @@
 
 #include <imgui.h>
 
+DebugMenu::DebugMenu(const char* title)
+    : mTitle(title) {}
+
 void DebugMenu::Render() {
-	ImGui::Begin("debug menu LOL");
-
-	for (const auto& moduleId : mModuleOrder) {
-		auto& module = mModules.at(moduleId).mModule;
-		if (ImGui::CollapsingHeader(module->GetTitle())) {
-			module->Render();
+	if (ImGui::Begin(mTitle.c_str())) {
+		for (const auto& moduleId : mModuleOrder) {
+			auto& module = mModules.at(moduleId).mModule;
+			if (ImGui::CollapsingHeader(module->GetTitle())) {
+				module->Render();
+			}
 		}
-	}
 
-	ImGui::End();
+		ImGui::End();
+	}
 }

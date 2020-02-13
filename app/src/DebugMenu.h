@@ -4,6 +4,7 @@
 #include <memory>
 #include <typeindex>
 #include <vector>
+#include <string>
 
 #include <imgui.h>
 
@@ -17,6 +18,7 @@ public:
 
 class DebugMenu {
 public:
+	DebugMenu(const char* title);
 	void Render();
 
 	template <class T, class... Args>
@@ -49,6 +51,7 @@ private:
 		std::unique_ptr<DebugModule> mModule;
 	};
 
+	std::string mTitle = "Debug Menu";
 	std::map<std::type_index, ModuleEntry> mModules;
 	std::vector<std::type_index> mModuleOrder;
 };

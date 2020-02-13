@@ -3,6 +3,7 @@ set(target_name "app")
 set(src_files
     "src/DebugMenu.cpp"
     "src/DebugMenu.h"
+    "src/Player.h"
     "src/main.cpp")
 
 add_executable(${target_name} ${src_files})

@@ -1,12 +1,11 @@
-﻿#define GLFW_INCLUDE_NONE
+﻿#include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 #include <imgui.h>
 
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
-
-#include <glad/glad.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,10 +49,12 @@ int main(void) {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 450");
 
-	DebugMenu debugMenu;
-
 	Player player;
-	debugMenu.RegisterModule<PlayerDebugModule>(player);
+
+#ifdef _DEBUG
+	DebugMenu debugMenu("Game");
+	debugMenu.RegisterModule<Player::PlayerDebugModule>(player);
+#endif
 
 	while (!glfwWindowShouldClose(window)) {
 		int width, height;
@@ -66,7 +67,9 @@ int main(void) {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
+#ifdef _DEBUG
 		debugMenu.Render();
+#endif
 
 		player.Render();
 
